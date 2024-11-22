@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Management</title>
+    <style>
+        .sell{
+            color: green;
+        }
+        .buy{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" placeholder="Item Name" id="itemName">
+    <br>
+    <input type="number" placeholder="Item Price" id="itemVal">
+    <br>
+    <select name="" id="expanse">
+        <option value="sell">Sell</option>
+        <option value="buy">Buy</option>
+    </select>
+    <br>
+    <button onclick="manageSell()">Submit</button>
+
+    <ul id="orderList">
+       
+    </ul>
+
+    <div class="totalSell">Total Sell: <span>0</span></div>
+    <div class="totalBuy">Total Buy: <span>0</span></div>
+    <div class="totalProfit">Total Profit: <span>0</span></div>
+
+    <script>
+
+        let totalSellPrice = 0;
+        let totalBuyPrice = 0;
+
+        const manageSell = () => {
+
+            /// Input Values ///
+            let itemName = document.getElementById("itemName").value;
+            let itemPrice = +document.getElementById("itemVal").value;
+            let itemOperator = document.getElementById("expanse").value;
+            /// Input Values ///
+
+            /// Creating Node ///
+            let itemList = document.createElement("li");
+            let textNode = document.createTextNode(itemName);
+            itemList.appendChild(textNode);
+
+            let totalSell = document.querySelector(".totalSell span")
+            let totalBuy = document.querySelector(".totalBuy span")
+            let totalProfit = document.querySelector(".totalProfit span");
+
+            /// Old Sell/Buy plus New Sell/Buy 
+            
+            
+            /// Class Condition ///
+            
+            if(itemOperator == "sell"){
+                let newSell = totalSellPrice + itemPrice;
+                totalSellPrice = newSell;
+                itemList.setAttribute("class" , "sell");
+                totalSell.innerText = newSell;
+                totalProfit.innerText = (newSell - totalBuyPrice)
+            }else{
+                let newBuy = totalBuyPrice + itemPrice;
+                totalBuyPrice = newBuy;
+                itemList.setAttribute("class" , "buy");
+                totalBuy.innerText = newBuy
+                totalProfit.innerText = (totalSellPrice - newBuy)
+            }
+
+            /// Class Condition ///
+            
+            /// Creating Node ///
+
+            /// Append Node ///
+            let ul = document.getElementById("orderList");
+            ul.appendChild(itemList)
+            /// Append Node ///
+            
+        }
+    </script>
+</body>
+</html>
